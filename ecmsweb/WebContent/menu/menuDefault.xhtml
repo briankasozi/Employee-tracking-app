@@ -1,0 +1,74 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:jsp="http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd">
+
+<ui:include src="/headFoot/loggedHeader.xhtml" />
+		
+	<h:panelGrid  bgcolor="#CCCCCE" columns="3" style="width:1320px;height:40; border-radius: 20px;">
+		<td width="250px"></td>
+		<h:form  style="background-color:#CCCCCE;">
+		<rich:toolbar style="height:30px;background:#CCCCCE; width : 804px;">
+		<h:panelGrid style=" width : 65px;" rendered="#{menuHandler.disabled}"></h:panelGrid>
+		
+		<h:panelGrid style=" width : 92px;" columns="2">
+		<div style=" width : 38px;"></div>
+			
+					<h:panelGroup>
+						<h:commandLink action="#{etsTaskHandler.taskListPage}" style="color:White;text-decoration: none;">
+					<h:outputText value="Task List"
+					style="FONT-SIZE: medium; color:#000;" />
+					</h:commandLink>
+					</h:panelGroup>
+					</h:panelGrid>
+					
+			<h:panelGrid columns="2" rendered="#{!menuHandler.disabled}">	
+			<div style="width:38px"></div>
+			<rich:dropDownMenu showDelay="0" style="background:#CCCCCE;" >
+				<f:facet name="label">
+					<h:panelGroup>
+						<h:commandLink  style="color:White;text-decoration: none;">
+						<h:outputText value="Admin" style=" color:#000; FONT-SIZE: medium; "/>
+						</h:commandLink>
+					</h:panelGroup>
+					</f:facet>
+					
+					<rich:menuItem  action="#{menuHandler.employeeList}"  style="background:#CCCCCE;" rendered="#{!menuHandler.disabled}" >Add/Edit Employee</rich:menuItem>
+					<rich:menuItem action="#{menuHandler.projectHomePage}" style="background:#CCCCCE;"  rendered="true" >Add/Edit Project</rich:menuItem>
+					<rich:menuItem action="#{menuHandler.users}" style="background:#CCCCCE;"  rendered="true" >Changes Privileges </rich:menuItem>
+					
+					
+			</rich:dropDownMenu>
+			
+				</h:panelGrid>
+					
+					
+					
+					<h:panelGrid columns="2">
+					<div style=" width : 38px;"></div>
+					<h:commandLink action="#{logOnHandler.changePassword}" style="color:White;text-decoration: none;">
+					<h:outputText value="Change Password"
+					style="FONT-SIZE: medium; color:#000;" />
+					</h:commandLink>
+					</h:panelGrid>
+					
+					<h:panelGrid columns="2">
+					<div style=" width : 38px;"></div>
+					<h:commandLink action="#{logOnHandler.logOffServer}" style="color:White;text-decoration: none;">
+					<h:outputText value="Log Off"
+					style="FONT-SIZE: medium; color:#000;" />
+					</h:commandLink>
+			</h:panelGrid>
+		</rich:toolbar>
+
+	</h:form>
+	<td width="200px"></td>
+</h:panelGrid>
+</ui:composition>

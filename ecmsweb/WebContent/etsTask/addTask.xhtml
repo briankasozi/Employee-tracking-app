@@ -1,0 +1,310 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich">
+	
+	
+<ui:composition template="/templates/ecmsDefaultTemplate.xhtml">
+
+
+	<ui:define name="body">
+	
+	<h:panelGrid  bgcolor="#CCCCCE" columns="3" style="width:1320px; border-radius: 20px;">
+			<td width="350px"></td>
+			
+		<h:form id="addTask" enctype="multipart/form-data">
+		  <a4j:queue size="2" requestDelay="500" sizeExceededBehavior="dropNext" onsizeexceeded="alert('to fast typing')" />
+		<script type="text/javascript">
+					<!-- //<![CDATA[
+									function focusAtEnd(el) {
+										 var s = el.value;
+									  el.focus();
+									  el.value = '';
+									  el.value = s;
+									}
+
+									
+									var curDt = new Date();
+							        function disablementFunction(day){
+							        	day.date.setDate(day.date.getDate() + 1);
+							        	if ((curDt.getTime() - day.date.getTime()) > 0)
+							        		  return false;
+							        	
+								        return true;
+							        }
+						//]]>-->
+						</script>
+			<rich:panel id="mainPanel" style="width:650px; height:650px;background:#F1F2FC ;border-radius: 20px;box-shadow: 10px 10px 5px #888888;">
+		<h:messages errorStyle="color:red;" infoStyle="color:green;" />
+				
+				
+					
+		<h:panelGrid columns="2" style="width:100%">
+			
+			<h:panelGrid style="float:left">	
+				<h:outputLabel value="Add Task" style="display:block; color:#000;font-weight:bold;"/>
+			</h:panelGrid >
+			<h:panelGrid columns="3" style="float:right">
+							<h:commandLink  action="#{etsTaskHandler.saveTask}">
+								<h:outputLabel  styleClass="formLabelswidth25"	style="color:#474CE3" value="Save"/>
+							</h:commandLink>
+							<h:panelGrid style=" width : 26px;"/>
+							<h:commandLink  action="#{etsTaskHandler.taskListPage}">
+								<h:outputLabel  styleClass="formLabelswidth25"	style="color:#474CE3" value="Cancel"/>
+							</h:commandLink>
+						</h:panelGrid>
+				</h:panelGrid>
+				
+				<h:panelGrid bgcolor="#F1F2FC"  columns="5" rendered="#{etsTaskHandler.multiDepartment}">
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 57px;"/>
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 98px;">
+					<h:outputText   value="Department" styleClass="formLabelswidth25" />
+					</h:panelGrid>
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 91px;"/>
+					<h:selectOneMenu value="#{etsTaskHandler.departmentID}" id="departmentid" styleClass="selectOneMenu" style="width:150px" >
+    					<f:selectItem itemValue="0" itemLabel="Select Department"/>
+    					<f:selectItems value="#{etsTaskHandler.departmentList}" />
+    					<f:ajax listener="#{etsTaskHandler.changeDepartment}"	render="employee assignedByEmployee reviewedByEmployee  reviewedByEmployeeid" />
+    				</h:selectOneMenu> 
+				</h:panelGrid>
+				
+				<h:panelGrid   columns="6" id="assigneeID" >
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 58px;"/>
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 182px;border-spacing:0px 0px;padding:0px 0px;">
+						<h:panelGrid columns="2" style="border-spacing:0px 0px;padding:0px 0px;">
+							<h:outputText   value="Assignee" styleClass="formLabelswidth25"  />
+							<h:outputText   value="*"  style="color:red" styleClass="formLabelswidth25"  />
+						</h:panelGrid>
+					</h:panelGrid>
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 0px;"/>
+					
+					<h:panelGrid  style=" width : 91px;" >
+					
+					<h:panelGrid  columns="3" >
+		 					<h:selectOneMenu value="" style=" width : 150px;">
+									<f:selectItem itemValue="false" itemLabel="Single Employee" />
+									<f:selectItem itemValue="true" itemLabel="Multiple Employee" />
+									<f:ajax listener="#{etsTaskHandler.taskTypes}"	render="singleEmpPanel" />
+							</h:selectOneMenu>
+				
+					<h:panelGrid id="singleEmpPanel">
+					<h:selectOneMenu value="#{etsTaskHandler.employeeID}" id="employee" styleClass="selectOneMenu"
+							style="width:150px" rendered="#{etsTaskHandler.taskType=='false'}" >
+						<f:selectItem itemValue="0" itemLabel="Select Employee"/>
+         				<f:selectItems value="#{etsTaskHandler.employeeList}" /> 
+         				<f:ajax listener="#{etsTaskHandler.changeEmployeeList}"  />
+    				</h:selectOneMenu>
+					
+					
+					 <h:inputTextarea  value="#{etsTaskHandler.multipleAssignees}"  id="multiaa" rows="3"  
+					 rendered="#{etsTaskHandler.taskType=='true'}" style=" width : 200px; height : 49px;">
+                     <a4j:ajax listener="#{etsTaskHandler.changeMultipleAssigneesListener}"
+                     		render="multiaa" event="keyup" 	oncomplete="focusAtEnd(document.getElementById('addTask:multiaa'))"
+                     		/>
+                   </h:inputTextarea>
+					
+					</h:panelGrid>
+					
+						</h:panelGrid>
+				</h:panelGrid>
+					</h:panelGrid>
+					
+				
+				<h:panelGrid bgcolor="#F1F2FC"  columns="5" >
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 57px;"/>
+					
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 98px;border-spacing:0px 0px;padding:0px 0px;">
+						<h:panelGrid columns="2" style="border-spacing:0px 0px;padding:0px 0px;">
+							<h:outputText   value="Project" styleClass="formLabelswidth25" />
+							<h:outputText   value="*"  style="color:red" styleClass="formLabelswidth25"  />
+						</h:panelGrid>
+					</h:panelGrid>
+					
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 91px;"/>
+					<h:selectOneMenu value="#{etsTaskHandler.projectID}" id="projectid" styleClass="selectOneMenu" style="width:150px" >
+    					<f:selectItem itemValue="0" itemLabel="Select Project"/>
+    					<f:selectItems value="#{etsTaskHandler.projectList}" />
+    				</h:selectOneMenu> 
+				</h:panelGrid>
+				
+				<h:panelGrid bgcolor="#F1F2FC"  columns="5" >
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 57px;"/>
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 98px;">
+						<h:outputText   value="Module" styleClass="formLabelswidth25" />
+					</h:panelGrid>
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 91px;"/>
+					<h:inputText value="#{etsTaskHandler.moduleName}" id="moduleid" style="width:150px"/>
+				</h:panelGrid>
+				
+				<h:panelGrid bgcolor="#F1F2FC"  columns="5" >
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 57px;"/>
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 98px;border-spacing:0px 0px;padding:0px 0px;">
+						<h:panelGrid columns="2" style="border-spacing:0px 0px;padding:0px 0px;">
+							<h:outputText   value="Assigner" styleClass="formLabelswidth25" />
+							<h:outputText   value="*"  style="color:red" styleClass="formLabelswidth25"  />
+						</h:panelGrid>
+					</h:panelGrid>
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 91px;"/>
+					<h:selectOneMenu value="#{etsTaskHandler.assignedByEmployeeID}" id="assignedByEmployee" styleClass="selectOneMenu"
+							style="width:150px" disabled="true" >
+         				<f:selectItem itemValue="0" itemLabel="Select Employee"/>
+         				<f:selectItems value="#{etsTaskHandler.assignedByEmployeeList}" /> 
+         				<f:ajax listener="#{etsTaskHandler.changeAssigneList}" render="assigneDesignationid" />
+    				</h:selectOneMenu> 
+    				<h:outputText style="color:#42719C"  id="assigneDesignationid" value="#{etsTaskHandler.assigneDesignation}"   />
+				</h:panelGrid>
+				
+				<h:panelGrid bgcolor="#F1F2FC"  columns="5" >
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 57px;"/>
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 127px;border-spacing:0px 0px;padding:0px 0px;">
+						<h:panelGrid columns="2" style="border-spacing:0px 0px;padding:0px 0px;">
+							<h:outputText   value="Reviewer" styleClass="formLabelswidth25"/>
+							<h:outputText   value="*"  style="color:red" styleClass="formLabelswidth25"  />
+						</h:panelGrid>
+					</h:panelGrid>
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 62px;"/>
+					<h:selectOneMenu value="#{etsTaskHandler.reviewedByEmployeeID}" id="reviewedByEmployee" styleClass="selectOneMenu"
+							style="width:150px">
+         				<f:selectItem itemValue="0" itemLabel="Select Employee"/>
+         				<f:selectItems value="#{etsTaskHandler.reviewedByEmployeeList}" /> 
+    				<f:ajax listener="#{etsTaskHandler.changeReviewerList}" render="reviewedByEmployeeid" />
+    				</h:selectOneMenu> 
+    				<h:outputText style="color:#42719C"  id="reviewedByEmployeeid" value="#{etsTaskHandler.reviewerDesignation}"   />
+				</h:panelGrid>
+				
+				
+				
+				
+				<h:panelGrid bgcolor="#F1F2FC"  columns="4" >
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 57px;"/>
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 131px;border-spacing:0px 0px;padding:0px 0px;">
+						<h:panelGrid columns="2" style="border-spacing:0px 0px;padding:0px 0px;">
+							<h:outputText   value="Task Summary" styleClass="formLabelswidth25"/>
+							<h:outputText   value="*"  style="color:red" styleClass="formLabelswidth25"  />
+						</h:panelGrid>
+					</h:panelGrid>
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 58px;"/>
+					<h:inputText value="#{etsTaskHandler.task}" id="taskInput" style="width:150px" />
+				</h:panelGrid>
+				<h:panelGrid columns="4">
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 57px;"/>
+					
+					<h:panelGrid columns="2" style="border-spacing:0px 0px;padding:0px 0px;">
+							<h:panelGrid  style="border-spacing:0px 0px;padding:0px 0px; width : 139px;">
+								<h:outputText   value="Expected Start Date" styleClass="formLabelswidth25"/>
+							</h:panelGrid>
+							<h:outputText   value="*"  style="color:red" styleClass="formLabelswidth25"  />
+					</h:panelGrid>
+					
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 33px;"/>
+						
+						<rich:calendar   dayDisableFunction="disablementFunction" id="dateFrom" value="#{etsTaskHandler.taskStartDate}"  datePattern="yyyy/M/dd HH:mm"  defaultTime="00:00:00" showApplyButton="true">
+						 <a4j:ajax  event="change"  render=":dateTo" listener="#{etsTaskHandler.changeExpectedTime}" ></a4j:ajax>
+						</rich:calendar>
+				</h:panelGrid>
+				
+				<h:panelGrid columns="4" id="dateTo">
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 57px;"/>
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 194px;border-spacing:0px 0px;padding:0px 0px;">
+						<h:panelGrid columns="2" style="border-spacing:0px 0px;padding:0px 0px;">
+							<h:outputText   value="Expected Completion Date" styleClass="formLabelswidth25"/>
+							<h:outputText   value="*"  style="color:red" styleClass="formLabelswidth25"  />
+						</h:panelGrid>
+					</h:panelGrid>
+						<rich:calendar dayDisableFunction="disablementFunction" value="#{etsTaskHandler.taskCompletionExpectedDate}"  datePattern="yyyy/M/dd HH:mm"  defaultTime="00:00:00" showApplyButton="true"/>
+					
+				</h:panelGrid>
+				
+				<h:panelGrid bgcolor="#F1F2FC"  columns="4" >
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 57px;"/>
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 98px;">
+						<h:outputText   value="Task Detail" styleClass="formLabelswidth25"/>
+					</h:panelGrid>
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 92px;"/>
+					<h:inputTextarea value="#{etsTaskHandler.taskDetail}" id="task" style="height : 81px; width : 357px;"/>
+				</h:panelGrid>
+				
+					<h:panelGrid bgcolor="#F1F2FC"  columns="4" >
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 57px;"/>
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 127px;border-spacing:0px 0px;padding:0px 0px;">
+						<h:panelGrid columns="2" style="border-spacing:0px 0px;padding:0px 0px;">
+							<h:outputText   value="Status" styleClass="formLabelswidth25"/>
+							<h:outputText   value="*"  style="color:red" styleClass="formLabelswidth25"  />
+						</h:panelGrid>
+					</h:panelGrid>
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 68px;"/>
+					<h:outputText   value="Not Started" style="color:#42719C;"/>
+				</h:panelGrid>
+				
+				<h:panelGrid bgcolor="#F1F2FC"  columns="5" >
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 57px;"/>
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 121px;border-spacing:0px 0px;padding:0px 0px;">
+						<h:panelGrid columns="2" style="border-spacing:0px 0px;padding:0px 0px;">
+							<h:outputText   value="Task Priority " styleClass="formLabelswidth25" />
+							<h:outputText   value="*"  style="color:red" styleClass="formLabelswidth25"  />
+						</h:panelGrid>
+					</h:panelGrid>
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 71px;"/>
+					<h:selectOneMenu value="#{etsTaskHandler.priorityId}" id="priorityid" styleClass="selectOneMenu" style="width:150px" >
+    					<f:selectItems value="#{etsTaskHandler.priorityList}" />
+    				</h:selectOneMenu> 
+				</h:panelGrid>
+				
+				
+				
+				<h:panelGrid bgcolor="#F1F2FC"  columns="4" >
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 57px;"/>
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 127px;">
+						<h:outputText   value="Assigned Docs" styleClass="formLabelswidth25"/>
+					</h:panelGrid>
+					<h:panelGrid bgcolor="#F1F2FC"  style=" width : 66px;"/>
+ 					<t:inputFileUpload value="#{etsTaskHandler.assignedDocs}" id="assignedDocs" />
+				</h:panelGrid>
+				
+								
+			
+		
+				<br/>
+				<h:panelGrid bgcolor="#F1F2FC"   columns="2" style=" width : 606px;" >
+					<h:panelGrid bgcolor="#F1F2FC"   style=" width : 121px;"/>
+					<h:panelGrid bgcolor="#F1F2FC"  columns="3" style=" width : 59px;">
+		 					<h:commandButton value="Save" action="#{etsTaskHandler.saveTask}" style="height:20px; width : 95px;" styleClass="buttonStyle"/>
+							<h:panelGrid bgcolor="#F1F2FC"   style=" width : 59px;"/>
+							<h:commandButton value="Cancel" action="#{etsTaskHandler.taskListPage}" style="height:20px; width : 90px;" styleClass="buttonStyle"   />
+					</h:panelGrid>
+				</h:panelGrid>
+			</rich:panel>
+		</h:form>
+		<td width="350px"></td>
+		</h:panelGrid>
+		<t:saveState value="#{etsTaskHandler.employeeList}"></t:saveState>
+		<t:saveState value="#{etsTaskHandler.assignedByEmployeeList}"></t:saveState>
+		<t:saveState value="#{etsTaskHandler.reviewedByEmployeeList}"></t:saveState>
+		<t:saveState value="#{etsTaskHandler.task}"></t:saveState>
+		<t:saveState value="#{etsTaskHandler.statusList}"></t:saveState>
+		<t:saveState value="#{etsTaskHandler.employeeID}"></t:saveState>
+		<t:saveState value="#{etsTaskHandler.assignedByEmployeeID}"></t:saveState>
+		<t:saveState value="#{etsTaskHandler.reviewedByEmployeeID}"></t:saveState>
+		<t:saveState value="#{etsTaskHandler.taskDetail}"></t:saveState>
+		<t:saveState value="#{etsTaskHandler.statusID}"></t:saveState>
+		<t:saveState value="#{etsTaskHandler.empDesignation}"></t:saveState>
+		<t:saveState value="#{etsTaskHandler.projectList}"></t:saveState>
+		<t:saveState value="#{etsTaskHandler.projectID}"></t:saveState>
+		<t:saveState value="#{etsTaskHandler.moduleName}"></t:saveState>
+		<t:saveState value="#{etsTaskHandler.departmentList}"></t:saveState>
+		<t:saveState value="#{etsTaskHandler.departmentID}"></t:saveState>
+		<t:saveState value="#{etsTaskHandler.multiDepartment}"></t:saveState>
+		<t:saveState value="#{etsTaskHandler.multipleAssignees}"></t:saveState>
+		<t:saveState value="#{etsTaskHandler.taskType}"></t:saveState>
+		
+		
+		  </ui:define>
+		  
+    </ui:composition>
+    
+ </html>

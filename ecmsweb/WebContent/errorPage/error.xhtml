@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">  
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:t="http://myfaces.apache.org/tomahawk"> 
+  <ui:composition template="/templates/ecmsDefaultTemplate.xhtml">
+
+   
+   <ui:define name="body">  
+   
+   
+  <input type="button" value="Back" onClick="window.location.href=window.location.href"/>
+    <h3 style="font-family: arial; font-variant: small-caps; color: #336699">  
+           You have encountered a system error!!  
+       </h3>
+       The error message is:  
+       <b>  
+         <h:outputText value="#{requestScope['javax.servlet.error.message']}" /> 
+       </b>  
+       
+    
+       <p />  
+       <font color="RED">  
+           Please show the system administator the error below.  
+       </font>  
+       <p />  
+       <textarea rows="30" cols="100" style="width: 700px;">  
+           <h:outputText  value="#{errorBean.stackTrace}"/>  
+       </textarea>  
+       <p />  
+   </ui:define>  
+  
+
+  
+</ui:composition>  
+
+</html>

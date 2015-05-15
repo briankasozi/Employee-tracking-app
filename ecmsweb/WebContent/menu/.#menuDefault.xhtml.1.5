@@ -1,0 +1,79 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<style>
+.pic {
+	margin-bottom: -4px;
+	margin-right: 2px;
+}
+
+</style>
+
+	<h:form>
+	
+	<!--<ui:include src="/headFoot/header.xhtml" />-->
+	<ui:include src="/headFoot/loggedHeader.xhtml" />
+		<rich:toolBar   >
+			<rich:dropDownMenu>
+				<f:facet name="label">
+					<h:panelGroup>
+						<h:outputText value="User" />
+					</h:panelGroup>
+				</f:facet>
+				<rich:menuItem submitMode="ajax" value="UserList"
+					action="#{baseUserLogHandler.baseUserList}">
+				</rich:menuItem>
+				<rich:menuItem submitMode="ajax" value="User Create"
+					action="#{baseUserLogHandler.baseUserCreate}">
+				</rich:menuItem>
+				<rich:menuSeparator id="menuSeparatorUser" />
+			</rich:dropDownMenu>
+
+			<rich:dropDownMenu>
+				<f:facet name="label">
+					<h:panelGroup>
+						<h:outputText value="Configuration" />
+					</h:panelGroup>
+				</f:facet>
+				<rich:menuItem submitMode="ajax" value="List"
+					action="#{ConfigureListHandler.showList}">
+				</rich:menuItem>
+				<rich:menuItem submitMode="ajax" value="Add"
+					action="#{ConfigureListHandler.addList}">
+				</rich:menuItem>
+				<rich:menuSeparator id="menuSeparatorRole" />
+				
+
+			</rich:dropDownMenu>
+			
+			<rich:dropDownMenu>
+				<f:facet name="label">
+					<h:panelGroup>
+						<h:outputText value="SVE History" />
+					</h:panelGroup>
+				</f:facet>
+				<rich:menuItem submitMode="ajax" value="List"
+					action="#{sveHistoryHandler.historyList}">
+				</rich:menuItem>
+				<rich:menuSeparator id="menuSeparatorSveHist" />
+			</rich:dropDownMenu>
+			
+			 <rich:toolBarGroup location="right">
+                
+                <h:commandLink id="s1212"
+									action="#{logOnHandler.logOffVBMServer}" value="[Log Off]"
+									rendered="true" style="display:block; text-align:right">
+								</h:commandLink>
+                <!--<rich:dropDownMenu value="LogOff" direction="bottom-left" jointPoint="br"  >
+                </rich:dropDownMenu>-->
+                
+            </rich:toolBarGroup>
+		</rich:toolBar>
+		
+	</h:form>
+</ui:composition>
+

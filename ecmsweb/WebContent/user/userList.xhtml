@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich">
+	
+
+<h:panelGrid >
+<ui:composition template="/templates/ecmsDefaultTemplate.xhtml">
+<ui:define name="body" >
+	<h:panelGrid  bgcolor="#CCCCCE" columns="3" style="width:1320px; border-radius: 20px;">
+			<td width="350px"></td>
+<h:form >
+	<rich:panel style="width:650px; height:450px;background:#F1F2FC ;border-radius: 20px;box-shadow: 10px 10px 5px #888888;" >
+		<h:panelGrid id="grid0" columns="3" width="100%" >
+			<h:outputLabel value="List User" style="display:block; color:#000;font-weight:bold;text-align:left;" />
+				<h:commandLink id="s1212" value="[Add]"  style="display:block;color:#474CE3; text-align:right;font-weight:bold"  action="#{userCreationHandler.userCreation}" />
+		 </h:panelGrid>
+		
+			<t:dataTable  id="userDetail" var="list" align="left" bgcolor="#F1F2FC" value="#{userCreationHandler.userList}"  rowClasses="ROW,ROW3" style="width:100%" rows="10">
+
+				<t:column width="200">
+					<f:facet name="header">User Login ID</f:facet>
+					<h:commandLink value="#{list.userLoginId}" action="#{userCreationHandler.editUser(list)}" style="text-align: center; width : 200px;" />
+				</t:column>
+		
+				<t:column width="200">
+					<f:facet name="header">Name</f:facet>
+					<h:inputText value="#{list.name}" style="text-align: center; width : 200px;"  />
+				</t:column>
+		
+				<t:column width="140">
+					<f:facet name="header">Role</f:facet>
+					<h:inputText value="#{list.role}" style="text-align: center; width : 140px;"  />
+				</t:column >
+				
+				<t:column >
+						<f:facet name="header">Enabled</f:facet>
+						<h:selectBooleanCheckbox value="#{list.enabled}" align="center"  disabled="true"/>
+				</t:column>
+				
+				<t:column  >
+					<f:facet name="header">Task Privileges</f:facet>
+					<h:selectBooleanCheckbox value="#{list.prev_enable}" align="center"  disabled="true"/>
+				</t:column>
+		
+		</t:dataTable>
+		
+		<h:panelGrid bgcolor="#F1F2FC" styleClass="scrollerTableCont" style="width:100%;text-align:center" >
+				<rich:dataScroller id="scrollerWellList"  for="userDetail" maxPages="10" rendered="true" renderIfSinglePage="true" style=" width : 100%;" />
+		</h:panelGrid>
+ 	</rich:panel>
+</h:form>
+		<td width="200px"></td>
+		</h:panelGrid>
+</ui:define>
+</ui:composition>
+</h:panelGrid>
+</html>

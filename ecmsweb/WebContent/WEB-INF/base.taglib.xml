@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<facelet-taglib xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd" id="base">
+    <namespace>http://bursys.com/base</namespace>
+	<tag>
+		<tag-name>acl</tag-name>
+		<component>
+			<component-type>com.bbh.tag.FrameComponent</component-type>
+			
+			<handler-class>com.bbh.tag.FrameHandler</handler-class>
+		</component>
+		<attribute>
+			<name>aclName</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<name>aclRole</name>
+			<type>java.lang.String</type>
+		</attribute>
+	</tag>
+    </facelet-taglib>

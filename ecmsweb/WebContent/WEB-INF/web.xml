@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <context-param>
+    <param-name>facelets.BUILD_BEFORE_RESTORE</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
+    <param-value>/WEB-INF/app-tags.taglib.xml</param-value>
+  </context-param>
+  <context-param>
+    <param-name>javax.faces.PROJECT_STAGE</param-name>
+    <param-value>Development</param-value>
+  </context-param>
+  <context-param>
+    <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+    <param-value>client</param-value>
+  </context-param>
+  <context-param>
+    <param-name>com.sun.faces.numberOfViewsInSession</param-name>
+    <param-value>1000</param-value>
+  </context-param>
+  <context-param>
+    <param-name>org.jboss.jbossfaces.JSF_CONFIG_NAME</param-name>
+    <param-value>MyFaces-2.0</param-value>
+  </context-param>
+  <context-param>
+    <param-name>org.richfaces.CONTROL_SKINNING</param-name>
+    <param-value>enable</param-value>
+  </context-param>
+  <context-param>
+    <param-name>org.richfaces.LoadScriptStrategy</param-name>
+    <param-value>all</param-value>
+  </context-param>
+  <context-param>
+    <param-name>org.richfaces.LoadStyleStrategy</param-name>
+    <param-value>all</param-value>
+  </context-param>
+  <context-param>
+    <param-name>org.richfaces.fileUpload.createTempFiles</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <param-name>org.richfaces.fileUpload.maxRequestSize</param-name>
+    <param-value>100000</param-value>
+  </context-param>
+  <context-param>
+    <param-name>org.richfaces.skin</param-name>
+    <param-value>classic</param-value>
+  </context-param>
+  <filter>
+    <filter-name>MyFacesExtensionsFilter</filter-name>
+    <filter-class>org.apache.myfaces.webapp.filter.ExtensionsFilter</filter-class>
+    <init-param>
+      <description>
+                 Set the size limit for uploaded files. Format: 10 - 10
+                 bytes 10k - 10 KB 10m - 10 MB 1g - 1 GB
+</description>
+      <param-name>uploadMaxFileSize</param-name>
+      <param-value>1024m</param-value>
+    </init-param>
+    <init-param>
+      <description>
+                 Set the threshold size - files below this limit are
+                 stored in memory, files above this limit are stored on
+                 disk.
+
+                 Format: 10 - 10 bytes 10k - 10 KB 10m - 10 MB 1g - 1 GB
+</description>
+      <param-name>uploadThresholdSize</param-name>
+      <param-value>100k</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>MyFacesExtensionsFilter</filter-name>
+    <servlet-name>Faces Servlet</servlet-name>
+  </filter-mapping>
+  <filter>
+    <filter-name>EcmsRequestFilter</filter-name>
+    <filter-class>com.bursys.ecms.baaja.jsf.basis.filter.EcmsRequestFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>EcmsRequestFilter</filter-name>
+    <url-pattern>*.jsf</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>EcmsRequestFilter</filter-name>
+    <url-pattern>*.xhtml</url-pattern>
+  </filter-mapping>
+  <servlet>
+    <servlet-name>Faces Servlet</servlet-name>
+    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet>
+    <description>Startup for the BURSYS Framework</description>
+    <display-name>BaajaStartUp</display-name>
+    <servlet-name>BaajaStartUp</servlet-name>
+    <servlet-class>com.bursys.baaja.basis.config.BaajaStartUp</servlet-class>
+    <load-on-startup>1</load-on-startup>
+    <enabled>true</enabled>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Faces Servlet</servlet-name>
+    <url-pattern>*.jsf</url-pattern>
+    <url-pattern>*.xhtml</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Faces Servlet</servlet-name>
+    <url-pattern>/faces/*</url-pattern>
+  </servlet-mapping>
+  <session-config>
+    <session-timeout>20</session-timeout>
+  </session-config>
+  <mime-mapping>
+    <extension>csv</extension>
+    <mime-type>text/csv</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>wsdl</extension>
+    <mime-type>text/xml</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>xsd</extension>
+    <mime-type>text/xml</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>xcss</extension>
+    <mime-type>text/css</mime-type>
+  </mime-mapping>
+  <error-page>
+    <exception-type>java.lang.Exception</exception-type>
+    <location>/errorPage/error.xhtml</location>
+  </error-page>
+</web-app>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="ecmscore" transaction-type="JTA">
+		<jta-data-source>java:/etsds</jta-data-source>
+		
+		<class>com.bbh.ets.bo.EtsBaseContact</class>
+		<class>com.bbh.ets.bo.EtsBaseUserLoginHistory</class>
+		<class>com.bbh.ets.bo.EtsRole</class>
+		<class>com.bbh.ets.bo.EtsUserLogin</class>
+		<class>com.bbh.ets.bo.EtsUserLoginRole</class>
+		<class>com.bbh.ets.bo.EtsUserLoginRoleId</class>
+		
+
+</persistence-unit>
+</persistence>

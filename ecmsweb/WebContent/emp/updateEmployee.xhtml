@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich">
+	
+	
+<ui:composition template="/templates/ecmsDefaultTemplate.xhtml">
+	<ui:define name="body">
+<h:panelGrid  bgcolor="#CCCCCE" columns="3" style="width:1320px; border-radius: 20px;">
+		<td width="350px"></td>
+		<h:form id="addEmp" enctype="multipart/form-data">
+			<rich:panel style="width:650px; height:600px;background:#F1F2FC;border-radius: 20px;box-shadow: 10px 10px 5px #888888;" >
+				<h:messages errorStyle="color:red;" infoStyle="color:green;"/>
+					
+					<h:outputLabel value="Update Employee Information" style="display:block; color:#000;font-weight:bold;" />
+					<h:panelGrid columns="3" style=" width : 496px;">
+				<h:panelGrid style=" width : 97px;"/>
+				<h:panelGrid >
+					<h:panelGrid bgcolor="#F1F2FC" columns="3"   style=" width : 155px;text-align:right; height : 28px;" >
+						<h:outputText   value="Employee Name *" styleClass="formLabelswidth25"/>
+					</h:panelGrid>
+					
+					<h:panelGrid bgcolor="#F1F2FC" columns="3"   style="width : 155px;text-align:right; height : 61px;" >
+						<h:outputText   value="Deparments *" styleClass="formLabelswidth25"/>
+					</h:panelGrid>
+					
+					
+					<h:panelGrid bgcolor="#F1F2FC" columns="3"   style=" width : 155px;text-align:right;height : 28px;" >
+						<h:outputText   value="Designation *" styleClass="formLabelswidth25"/>
+					</h:panelGrid>
+					
+					<h:panelGrid bgcolor="#F1F2FC" columns="3"   style=" width : 155px;text-align:right;height : 28px;" >
+						<h:outputText   value="Employee Code *" styleClass="formLabelswidth25"/>
+					</h:panelGrid>
+					
+					<h:panelGrid bgcolor="#F1F2FC" columns="3"   style=" width : 155px;text-align:right;height : 28px;" >
+						<h:outputText   value="Contact No *" styleClass="formLabelswidth25"/>
+					</h:panelGrid>
+					
+					<h:panelGrid bgcolor="#F1F2FC" columns="3"   style=" width : 155px;text-align:right;height : 28px;" > 
+						<h:outputText   value="Email-Id *"   styleClass="formLabelswidth25"/>
+					</h:panelGrid>
+					
+					<h:panelGrid bgcolor="#F1F2FC" columns="3"   style=" width : 155px;text-align:right;height : 28px;" >
+						<h:outputText   value="D.O.J. *"  styleClass="formLabelswidth25"/>
+					</h:panelGrid>
+					
+					<h:panelGrid bgcolor="#F1F2FC" columns="3"   style=" width : 155px;text-align:right;height : 127px;" >
+						<h:outputLabel value="Address *"  styleClass="formLabelswidth25"/>				
+	            	</h:panelGrid>
+	            	
+	            	
+	            	<h:panelGrid id="expe" >
+	            	<h:panelGrid bgcolor="#F1F2FC" columns="3"   style=" width : 155px;text-align:right;" >
+						<h:outputLabel value="Experience"  styleClass="formLabelswidth25" />				
+	            	</h:panelGrid>
+	            	
+	            	<h:panelGrid bgcolor="#F1F2FC" columns="3"   style=" width : 155px;text-align:right;" >
+						<h:outputLabel value="Previous Employeer"  styleClass="formLabelswidth25" />				
+	            	</h:panelGrid>
+            		</h:panelGrid>
+            	</h:panelGrid>
+            	
+            	
+            <h:panelGrid >
+					<h:panelGrid bgcolor="#F1F2FC" columns="3"   style="text-align:left; width : 209px;;height : 28px;" >
+						<h:inputText    value="#{empHandler.employeeName}" id="Name" style="width:150px"  />
+					</h:panelGrid>
+					
+					<h:panelGrid bgcolor="#F1F2FC" columns="3"   style="text-align:left; height : 61px; width : 207px;" >
+							<h:selectManyListbox value="#{empHandler.departments}" style="width:150px">
+								<f:selectItems value="#{empHandler.departmentList}" /> 
+							</h:selectManyListbox>
+					</h:panelGrid>
+					
+					
+					<h:panelGrid bgcolor="#F1F2FC" columns="3"   style="text-align:left; width : 209px;;height : 28px;" >
+						<h:selectOneMenu value="#{empHandler.empDesignation}"    id="empDesignation" style="width:153px">
+							<f:selectItem itemValue="Project Manager" itemLabel="Project Manager" />
+							<f:selectItem itemValue="Team Leader" itemLabel="Team Leader" />
+							<f:selectItem itemValue="Software Developer" itemLabel="Software Developer" />
+							<f:selectItem itemValue="HR" itemLabel="HR" />
+							<f:selectItem itemValue="Software Trainee" itemLabel="Software Trainee" />
+							<f:selectItem itemValue="Director" itemLabel="Director" />
+						</h:selectOneMenu>
+					</h:panelGrid>
+					
+					<h:panelGrid bgcolor="#F1F2FC" columns="3"   style="text-align:left; width : 209px;height : 28px;" >
+						<h:inputText  value="#{empHandler.empCode}" id="empCode" style="width:150px"/>
+					</h:panelGrid>
+					
+					<h:panelGrid bgcolor="#F1F2FC" columns="3"   style="text-align:left; width : 209px;height : 28px;" >
+						<h:inputText    redisplay="true"  value="#{empHandler.empContactNo}" id="empContact" style="width:150px"/>
+					</h:panelGrid>
+					
+					<h:panelGrid bgcolor="#F1F2FC" columns="3"   style="text-align:left; width : 209px;height : 28px;" > 
+						<h:inputText   redisplay="true"  value="#{empHandler.empEmail}" id="empEmail" style="width:150px"/>
+					</h:panelGrid>
+					
+					<h:panelGrid bgcolor="#F1F2FC" columns="3"   style="text-align:left; width : 209px;height : 28px;" >
+						<rich:calendar  value="#{empHandler.empDOJ}"  datePattern="yyyy-MM-dd"  id="empDOJ" inputStyle="width:135px"  />
+					</h:panelGrid>
+					
+					<h:panelGrid bgcolor="#F1F2FC" columns="3"   style="text-align:left; width : 209px; height : 127px;" >
+	            		<h:inputTextarea id="empAdd" inputStyle="width:750px" rows="6" columns="20"  value="#{empHandler.empAdd}"  />
+	                </h:panelGrid>
+	                
+	                
+	               <h:panelGrid id="experience" >
+	                <h:panelGrid bgcolor="#F1F2FC" columns="3"   style="text-align:left; width : 209px;" >
+	            		<h:inputText id="empExperience" inputStyle="width:750px" rows="6" columns="20"  value="#{empHandler.experience}"/>
+	                </h:panelGrid>
+	                <h:panelGrid bgcolor="#F1F2FC" columns="3"   style="text-align:left; width : 209px; ">
+	            		<h:inputText id="oldEmployeer" inputStyle="width:750px" rows="6" columns="20"  value="#{empHandler.previousEmployeer}" 
+	            		/>
+	                </h:panelGrid>
+	                </h:panelGrid>
+                </h:panelGrid>
+          </h:panelGrid>
+				<h:panelGrid columns="4" style="width:40px" align="center">
+						<t:div style="width:50px;"/>
+	 					<h:commandButton value="Update" action="#{empHandler.updateEmployee}" style="width:92px;" styleClass="buttonStyle"/>
+							<t:div style="width:20px;"/>
+						<h:commandButton value="Cancel" action="#{empHandler.cancelEmployee}" style="width:92px;" styleClass="buttonStyle" />
+				</h:panelGrid>
+				
+				
+		
+			</rich:panel>
+			
+		</h:form>
+		</h:panelGrid>
+			<t:saveState value="#{empHandler.empId}"></t:saveState>
+			<t:saveState value="#{empHandler.employeeName}"></t:saveState>
+		<t:saveState value="#{empHandler.empDesignation}"></t:saveState>
+		<t:saveState value="#{empHandler.departmentList}"></t:saveState>
+		<t:saveState value="#{empHandler.departments}"></t:saveState>
+		<t:saveState value="#{empHandler.empCode}"></t:saveState>
+		<t:saveState value="#{empHandler.empContactNo}"></t:saveState>
+		<t:saveState value="#{empHandler.empEmail}"></t:saveState>
+		<t:saveState value="#{empHandler.empAdd}"></t:saveState>
+		<t:saveState value="#{empHandler.empDOJ}"></t:saveState>
+	<t:saveState value="#{empHandler.experience}"></t:saveState>
+	<t:saveState value="#{empHandler.previousEmployeer}"></t:saveState>
+	
+		
+		  </ui:define>
+    </ui:composition>
+ </html>

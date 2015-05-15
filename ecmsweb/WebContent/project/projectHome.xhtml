@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich">
+	
+	
+<ui:composition template="/templates/ecmsDefaultTemplate.xhtml">
+<ui:define name="body">
+
+	<h:panelGrid  bgcolor="#CCCCCE" columns="3" style="width:1320px; border-radius: 20px;">
+	<td width="350px" />
+		<h:form id="addTask" enctype="multipart/form-data">
+		<rich:panel id="mainPanel" style="width:650px;background:#F1F2FC ;border-radius: 20px;box-shadow: 10px 10px 5px #888888; height : 355px;">
+		
+			<h:panelGrid columns="2" style="width:100%">
+				<h:panelGrid style="float:left">	
+					<h:outputLabel value="Project Information" style="display:block; color:#000;font-weight:bold;"/>
+				</h:panelGrid >
+				
+				<h:panelGrid columns="1" style="float:right">
+					<h:commandLink action="#{projectHandler.projectPage}" styleClass="formLabelswidth25"	style="color:#474CE3" value="[Add New Project]" immediate="true" />
+				</h:panelGrid>
+			</h:panelGrid>
+			<h:panelGrid style=" width : 100%;">
+				<h:messages errorStyle="color:red;" infoStyle="color:green;" />
+			</h:panelGrid>
+			
+			<rich:panel style=" width : 100%;">
+				<t:dataTable style=" width : 100%;" id="projectTable" var="list" rowClasses="ROW,ROW3" rows="10" bgcolor="#FAFFFF" value="#{projectHandler.projectList}" border="0">
+
+					<t:column  width="100" style="text-align:center">
+						<f:facet name="header">
+							<h:outputText value="Project ID" styleClass="formLabelswidth28" />
+						</f:facet>
+						<h:outputText value="#{list.projectId}"/>
+					</t:column>
+					
+					<t:column width="200" style="text-align:left">
+						<f:facet name="header">
+							<h:outputText value="Project" styleClass="formLabelswidth28" />
+						</f:facet>
+						<h:commandLink value="#{list.projectName}" action="#{projectHandler.editProject(list)}" immediate="true"/>
+					</t:column>
+					
+					<t:column  style="text-align:left">
+						<f:facet name="header">
+							<h:outputText value="Description" styleClass="formLabelswidth28" />
+						</f:facet>
+						<h:outputText value="#{list.description}"/>
+					</t:column>
+				</t:dataTable>
+				
+				<h:panelGrid styleClass="scrollerTableCont" columnClasses="standardTable_ColumnCentered" style="width:100%;">
+						<rich:dataScroller for="projectTable" renderIfSinglePage="true" style=" width : 100px;" fastStep="2" />
+				</h:panelGrid>
+			</rich:panel>			
+			
+				
+		</rich:panel>
+		</h:form>
+	<td width="350px"/>
+	</h:panelGrid>
+	
+	
+	<t:saveState value="#{projectHandler.projectList}" />
+</ui:define>
+</ui:composition>
+ </html>

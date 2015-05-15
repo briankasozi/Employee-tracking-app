@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:rich="http://richfaces.org/rich">
+	
+	<head>
+							<link rel="stylesheet" type="text/css" href="../styles/ecmsCSS.css" />
+				</head>		
+				<h:panelGrid  bgcolor="#CCCCCE" columns="3" style="width:1320px; border-radius: 20px;">
+			<td width="250px"></td>
+			<h:form >
+
+				
+			<rich:panel style="background:#FAFFFF;border-radius: 20px; width : 806px; height : 101px;"  >	
+			
+				<h:panelGrid columns="4" style=" width : 800px; height : 80px;">
+				<h:panelGrid style=" width : 24px;"/>
+					<h:commandLink action="#{etsTaskHandler.taskListPage}"
+						style="color:White;text-decoration: none;">
+						<h:outputLabel value="ETS"
+							style="font-style:italic;color:#90B5F5 ;font-size: 35px; line-height: 0px;text-transform: uppercase;text-shadow: 10px 10px 0 rgba(255,255,255,0.07);" />
+					</h:commandLink>
+					
+				<h:panelGrid style=" width : 67px;"/>
+		<h:panelGrid columns="2">
+				<h:panelGrid style="text-align:left;" bgcolor="#FAFFFF" >
+						<h:outputLabel value="User:" style="text-align:left;font-size: 12px;" />
+						<h:outputLabel value="Designation:" style="color:#000000;font-size:12px; text-align:left;" />
+						<h:outputLabel value="Role:" style="color:#000000;font-size: 12px" />
+						<h:outputLabel value="Department" style="color:#000000;font-size: 12px" />
+				</h:panelGrid>
+				
+				<h:panelGrid  style="text-align:left;" bgcolor="#FAFFFF" >
+							<h:outputLabel value="#{logOnHandler.userBo.loginEmployeeName}"	style="height:40px;color:#42719C;font-size:12px;font-style:italic;" />
+							<h:outputLabel	value="#{logOnHandler.userBo.loginEmployeedesignation}"	style=" height:40px;color:#42719C;text-align:right;font-size:12px;font-style:italic;" />
+							<h:outputLabel value="#{logOnHandler.userBo.roleName}"	style=" height:40px;width : 60px;color:#42719C;font-size:12px;font-style:italic;" />
+							<h:outputLabel value="#{logOnHandler.userBo.departments}" style=" height:40px;width : 60px;color:#42719C;font-size:12px;font-style:italic;" />
+				</h:panelGrid>
+		</h:panelGrid>		
+			</h:panelGrid>
+			</rich:panel>	
+		</h:form>		
+		<td width="200px"></td>
+		</h:panelGrid>	
+</html>
+

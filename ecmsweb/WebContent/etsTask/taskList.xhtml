@@ -1,0 +1,341 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition template="/templates/ecmsDefaultTemplate.xhtml">
+
+	<ui:define name="body" style="background:#F1F2FC;">
+
+		<h:panelGrid bgcolor="#CCCCCE" columns="3"
+			style="width:1320px; border-radius: 20px;">
+			<td width="150px"></td>
+			<h:form id="TaskList">
+			
+				<rich:panel
+					style="width:1280px; height:700px;background:#F1F2FC ;border-radius: 20px;box-shadow: 10px 10px 5px #888888;">
+					<h:messages errorStyle="color:red;" infoStyle="color:green;">
+
+					</h:messages>
+
+
+					<h:panelGrid id="grid0" columns="3" style="width:1261px;"		bgcolor="#FAFFFF">
+						<h:panelGrid style=" width : 160px;" >
+						<h:outputLabel value="Task List" styleClass="formLabelswidth25" />
+						</h:panelGrid>
+						<h:panelGrid columns="2" style=" width : 750px;"/>
+						<h:panelGrid columns="2" style=" width : 230px;">
+							<h:commandLink id="gfgd3" action="#{etsTaskHandler.addNewTask}"
+								immediate="true">
+								<h:outputLabel id="gfgdqew3" styleClass="formLabelswidth25"
+									style="color:#474CE3" value="Add New Task"
+									rendered="#{etsTaskHandler.taskPrev}" />
+							</h:commandLink>
+							<h:commandLink id="gfgd" action="#{etsTaskHandler.exportTaskData}"
+								immediate="true">
+								<h:outputLabel id="gfgdqew" styleClass="formLabelswidth25"
+									style="color:#474CE3" value="Export Task List"/>
+							</h:commandLink>
+						</h:panelGrid>
+					</h:panelGrid>
+
+					<h:panelGrid columns="9" style=" width : 1261px;" bgcolor="#D6E6F2" border="0">
+					
+						<t:column>
+								<h:panelGrid  style=" width : 100%; text-align:center" bgcolor="#F0F8FF">
+								  	<h:outputLabel value="Assignee"  />
+						
+								<h:selectOneMenu value="#{etsTaskHandler.employeeID}"
+									id="employeee" styleClass="selectOneMenu" 
+									style=" width : 110px;" >
+								<f:ajax  listener="#{etsTaskHandler.searchOnClick}" render="TaskList_list" ></f:ajax>
+									
+									<f:selectItem itemValue="0" itemLabel="All Employee's" />
+									<f:selectItems value="#{etsTaskHandler.employeeList}" />
+								</h:selectOneMenu>
+							</h:panelGrid>
+					   </t:column>
+					   
+						<t:column>
+						 <h:panelGrid  style=" width : 100%; text-align:center" bgcolor="#F0F8FF">
+							<h:outputLabel value="Assigner" />
+					
+							<h:selectOneMenu value="#{etsTaskHandler.assignedByEmployeeID}"
+								id="assignedByEmployee" styleClass="selectOneMenu"
+								style="width:150px">
+								<f:ajax  listener="#{etsTaskHandler.searchOnClick}" render="TaskList_list" ></f:ajax>
+								<f:selectItem itemValue="0" itemLabel="All Employee's" />
+								<f:selectItems value="#{etsTaskHandler.assignedByEmployeeList}" />
+							</h:selectOneMenu>
+						</h:panelGrid>
+						</t:column>
+						
+						<t:column>
+						<h:panelGrid  style=" width : 100%; text-align:center" bgcolor="#F0F8FF">						
+						<h:outputLabel value="Reviewer" style=" width : 60px;" />
+							<h:selectOneMenu value="#{etsTaskHandler.reviewedByEmployeeID}"	id="reviewedByEmployee" styleClass="selectOneMenu" style="width:150px">
+								<f:ajax  listener="#{etsTaskHandler.searchOnClick}" render="TaskList_list" ></f:ajax>
+									<f:selectItem itemValue="0" itemLabel="All Employee's" />
+								<f:selectItems value="#{etsTaskHandler.reviewedByEmployeeList}" />
+							</h:selectOneMenu>
+						</h:panelGrid>
+						</t:column>
+						
+						<t:column>
+						
+						<h:panelGrid  style=" width : 100%; text-align:center" bgcolor="#F0F8FF">
+						<h:outputLabel value="Project" />
+							<h:selectOneMenu value="#{etsTaskHandler.projectID}"
+								id="projectidee" styleClass="selectOneMenu" style="width:100px">
+								<f:ajax  listener="#{etsTaskHandler.searchOnClick}" render="TaskList_list" ></f:ajax>
+								<f:selectItem itemValue="0" itemLabel="All Projects" />
+								<f:selectItems value="#{etsTaskHandler.projectList}" />
+							</h:selectOneMenu>
+						</h:panelGrid>
+						</t:column>
+						
+						<t:column>
+						
+						<h:panelGrid  style=" width : 100%; text-align:center" bgcolor="#F0F8FF">
+						<h:outputText value="Status" />
+
+							<h:selectOneMenu value="#{etsTaskHandler.statusID}"
+								id="StatusInput" styleClass="selectOneMenu" style="width:150px">
+								<f:ajax  listener="#{etsTaskHandler.searchOnClick}" render="TaskList_list" ></f:ajax>
+								<f:selectItem itemValue="0" itemLabel="All Type" />
+								<f:selectItems value="#{etsTaskHandler.statusList}" />
+							</h:selectOneMenu>
+						</h:panelGrid>
+						</t:column>
+
+						<t:column>
+						<h:panelGrid  style=" width : 100%; text-align:center" bgcolor="#F0F8FF">
+							<h:outputLabel value="From " />
+							<rich:calendar value="#{etsTaskHandler.fromDate}" datePattern="dd/MM/yyyy" inputSize="12">
+							<f:ajax  listener="#{etsTaskHandler.searchOnClick}" render="TaskList_list" ></f:ajax>
+							</rich:calendar>
+						</h:panelGrid>
+						</t:column>
+						
+						<t:column>
+						<h:panelGrid  style=" width : 100%; text-align:center" bgcolor="#F0F8FF">
+							<h:outputLabel value="To"/>
+								<rich:calendar value="#{etsTaskHandler.toDate}"	datePattern="dd/MM/yyyy" inputSize="12">
+								<f:ajax  listener="#{etsTaskHandler.searchOnClick}" render="TaskList_list" ></f:ajax>
+								</rich:calendar>
+							</h:panelGrid>
+							</t:column>
+						
+						<t:column>
+						<h:panelGrid  style=" width : 100%; text-align:center" bgcolor="#F0F8FF">
+							<h:outputLabel value="Completion Date"/>
+								<rich:calendar value="#{etsTaskHandler.taskCompletionExpectedDate}"	datePattern="dd/MM/yyyy" inputSize="12">
+								<f:ajax  listener="#{etsTaskHandler.searchOnClick}" render="TaskList_list" ></f:ajax>
+								</rich:calendar>
+							</h:panelGrid>
+							</t:column>
+							
+						<t:column>
+							<h:panelGrid  style="height : 44px;" bgcolor="#F0F8FF">
+								<h:commandLink id="cmd_search" action="#{etsTaskHandler.search}">
+									<h:graphicImage id="image" url="/images/search.gif" />
+								</h:commandLink>
+							</h:panelGrid>
+						</t:column>
+						
+					</h:panelGrid>
+
+
+
+					<h:panelGrid columns="1" id="TaskList_list" bgcolor="#FAFFFF">
+						<t:dataTable id="Partner_Table" var="list" 
+						
+						rowClasses="ROW,ROW3"
+							
+							rows="15" bgcolor="#FAFFFF" value="#{etsTaskHandler.taskList}"
+							border="0">
+
+
+							<t:column width="200" style="text-align:left">
+								<f:facet name="header">
+									<h:outputText value="Task ID"
+										styleClass="formLabelswidth28" />
+								</f:facet>
+								<h:commandLink id="taskSummary" immediate="true"
+									action="#{etsTaskHandler.openTask(list)}">
+									<h:outputText value="#{list.taskSummaryID}" id="summaryId" />
+								</h:commandLink>
+							</t:column>
+							
+							
+							<t:column width="320">
+								<f:facet name="header">
+									<h:outputText value="Assignee" styleClass="formLabelswidth28" />
+								</f:facet>
+								<h:outputText value="#{list.employeeName}" />
+							</t:column>
+
+							<t:column width="320">
+								<f:facet name="header">
+									<h:outputText value="Assigner" styleClass="formLabelswidth28" />
+								</f:facet>
+								<h:outputText value="#{list.assignedByemployeeName}" />
+							</t:column>
+
+							<t:column width="320">
+								<f:facet name="header">
+									<h:outputText value="Reviewer" styleClass="formLabelswidth28" />
+								</f:facet>
+								<h:outputText value="#{list.reviewedByemployeeName}" />
+							</t:column>
+
+							<t:column width="200" style="text-align:left">
+								<f:facet name="header">
+									<h:outputText value="Task Detail"
+										styleClass="formLabelswidth28" />
+								</f:facet>
+								<h:commandLink id="opentask" immediate="true"
+									action="#{etsTaskHandler.openTask(list)}">
+									<h:outputText value="#{list.task}" id="taskinfo" />
+								</h:commandLink>
+							</t:column>
+
+							<t:column width="150" style="text-align:left">
+								<f:facet name="header">
+									<h:outputText value="Project" styleClass="formLabelswidth28" />
+								</f:facet>
+								<h:outputText value="#{list.projectName}" id="projectname" />
+							</t:column>
+
+							<t:column width="320" style="text-align:center">
+								<f:facet name="header">
+									<h:outputText value="Creation Date"
+										styleClass="formLabelswidth28" />
+								</f:facet>
+								<h:outputText value="#{list.taskCreationDate}" />
+							</t:column>
+
+
+							<t:column width="340" style="text-align:center">
+								<f:facet name="header">
+									<h:outputText value="Start Date" styleClass="formLabelswidth28" />
+								</f:facet>
+								<h:outputText value="#{list.taskStartDate}" />
+							</t:column>
+
+
+							<t:column width="320" style="text-align:center">
+								<f:facet name="header">
+									<h:outputText value="Target Completion Date"
+										styleClass="formLabelswidth28" />
+								</f:facet>
+								<h:outputText value="#{list.taskCompletionExpectedDate}" />
+							</t:column>
+							
+							<t:column width="320" style="text-align:center">
+								<f:facet name="header">
+									<h:outputText value="Actual Completion Date"
+										styleClass="formLabelswidth28" />
+								</f:facet>
+								<h:outputText value="#{list.taskCompletionDate}" />
+							</t:column>
+
+
+							<t:column width="250">
+								<f:facet name="header">
+									<h:outputText value="Status" styleClass="formLabelswidth28" />
+								</f:facet>
+								<h:panelGrid style="float:left">
+								<h:outputText value="#{list.status}" style="position:relative;top:5px;" />
+								</h:panelGrid>
+								<h:panelGrid style="float:right">
+								<h:graphicImage style="width:20px" url="/images/alert1.png" rendered="#{list.statusID=='7'}" />
+								<h:graphicImage style="width:20px" url="/images/check1.png" rendered="#{list.statusID=='3'}"/>
+								<h:graphicImage style="width:20px" url="/images/hold1.png" rendered="#{list.statusID=='8'}"/>
+								</h:panelGrid>
+							</t:column>
+
+							<t:column>
+								<f:facet name="header">
+									<h:outputText value="Priority" styleClass="formLabelswidth28" />
+								</f:facet>
+								<h:outputText value="#{list.priority}" />
+							</t:column>
+							<t:column>
+								<f:facet name="header">
+									<h:outputText value="RA" styleClass="formLabelswidth28" />
+								</f:facet>
+								<h:outputText value="#{list.counter}" />
+							</t:column>
+
+							<t:column style="text-align:center">
+								<f:facet name="header">
+									<h:outputText value="Docs" styleClass="formLabelswidth28" />
+								</f:facet>
+								<h:commandLink id="download_doc" immediate="true"
+									action="#{etsTaskHandler.download(list)}">
+									<h:graphicImage id="imageAttachment"
+										url="/images/IconAttachment.gif"  rendered="#{list.assignedDocAttached || list.reviewedDocAttached || list.developerDocAttached}"/>
+								</h:commandLink>
+							</t:column>
+
+
+
+
+
+
+
+
+							<t:column rendered="#{etsTaskHandler.userBo.roleId == '10'}">
+								<f:facet name="header" style="text-align:center">
+									<h:graphicImage id="image1" url="/images/b_drop.png" />
+								</f:facet>
+
+								<h:commandLink id="cmd_del_1" immediate="true"
+									action="#{etsTaskHandler.deleteTask(list)}">
+									<h:graphicImage id="image" url="/images/b_drop.png" />
+								</h:commandLink>
+							</t:column>
+
+
+
+
+
+
+						</t:dataTable>
+						<h:panelGrid columns="1" styleClass="scrollerTableCont"
+							columnClasses="standardTable_ColumnCentered"
+							style="width:100%;">
+							<rich:dataScroller id="scrollerWellList" align="Left"
+								for="Partner_Table" maxPages="5" renderIfSinglePage="true"
+								style=" width : 100%;" fastStep="2">
+							</rich:dataScroller>
+						</h:panelGrid>
+					</h:panelGrid>
+				</rich:panel>
+
+
+			</h:form>
+			<td width="150px"></td>
+		</h:panelGrid>
+
+		<t:saveState value="#{etsTaskHandler.fromDate}" />
+		<t:saveState value="#{etsTaskHandler.toDate}" />
+		<t:saveState value="#{etsTaskHandler.employeeID}" />
+		<t:saveState value="#{etsTaskHandler.projectID}" />
+		<t:saveState value="#{etsTaskHandler.statusID}" />
+		<t:saveState value="#{etsTaskHandler.searchStage}" />
+		<t:saveState value="#{etsTaskHandler.assignedByEmployeeID}"/>
+		<t:saveState value="#{etsTaskHandler.reviewedByEmployeeID}"/>
+		<t:saveState value="#{etsTaskHandler.taskList}"/>
+
+	</ui:define>
+
+</ui:composition>
+
+</html>

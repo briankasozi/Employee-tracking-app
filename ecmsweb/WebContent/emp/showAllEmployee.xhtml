@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich">
+	
+
+<h:panelGrid >
+<ui:composition template="/templates/ecmsDefaultTemplate.xhtml">
+<ui:define name="body" >
+
+<h:panelGrid  bgcolor="#CCCCCE" columns="3" style="width:1320px; border-radius: 20px;">
+<td width="350px"></td>
+
+	<h:form >
+		<rich:panel style="width:650px; height:650px;background:#F1F2FC;border-radius: 20px;box-shadow: 10px 10px 5px #888888;" >
+				<h:panelGrid id="grid0" columns="3" width="100%"  bgcolor="#F1F2FC" >
+							<h:outputLabel value="Employee Reports" style="display:block; color:#000;font-weight:bold;" />
+							<h:commandLink id="s1212" value="[Add New Employee]" rendered="true" style="display:block; text-align:right;color:#474CE3;font-weight:bold;"  styleClass="saveCancel" action="#{menuHandler.addEmp}" />
+				</h:panelGrid >
+				
+				<t:dataTable  id="employeeList"  var="list" rowClasses="ROW,ROW3" value="#{empHandler.empList}"  style="width:100%"  rows="17" >
+				
+					<t:column  style="width:250px" >
+						<f:facet name="header">Employee Name</f:facet>
+						<h:commandLink value="#{list.employeeName}" action="#{empHandler.editEmployee(list)}" immediate="true"  style="width:250px" />
+					</t:column>
+			
+					<t:column width="105">
+							<f:facet name="header">Designation</f:facet>
+							<h:inputText value="#{list.designation}" style="text-align: center; width : 105px;"  />
+					</t:column>
+		
+					<t:column width="105">
+						<f:facet name="header">Employee Code</f:facet>
+						<h:inputText value="#{list.empCode}" style="text-align: center; width : 105px;"  />
+					</t:column >
+		
+					<t:column width="105">
+						<f:facet name="header">Phone Number</f:facet>
+						<h:inputText value="#{list.empPhoneNo}" style="text-align: center; width : 105px;"  />
+					</t:column >
+			 </t:dataTable>		
+			 <t:panelGrid style="width:100%;text-align:center" border="1">	
+			 	<rich:dataScroller  for="employeeList" maxPages="20" id="sc2"  style=" width : 100%;" />
+			 </t:panelGrid>
+		</rich:panel>
+</h:form>
+<t:saveState value="#{empHandler.empList}"></t:saveState>
+<td width="350px"></td>		
+</h:panelGrid>
+</ui:define>
+</ui:composition>
+</h:panelGrid>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+
+<ui:composition template="/templates/ecmsDefaultTemplate.xhtml">
+
+	<ui:define name="body">
+		<f:view>
+			<h:panelGrid  bgcolor="#CCCCCE" columns="3" style="width:1320px; border-radius: 20px;">
+		<td width="450px"></td>
+			<h:form>
+				<rich:panel style="width:680px; height:450px;background:#F1F2FC;border-radius: 20px;box-shadow: 10px 10px 5px #888888;">
+						<h:outputLabel value="Employee Reports" style="display:block; color:#000;font-weight:bold;" />
+					<h:panelGrid columns="1" bgcolor="#F1F2FC" style="width:100%;">
+						<h:panelGrid bgcolor="#F1F2FC">
+							<h:messages style="color:darkred" />
+							<h:outputLabel value="    " />
+							<h:outputLabel value="    " />
+						</h:panelGrid>
+					<h:panelGrid columns="4" bgcolor="#F1F2FC" style=" width : 446px;">
+							<h:outputLabel value="Select Report Type :" />
+								<td style="width:0px;"></td>
+								<h:selectOneMenu value="#{emReportHandler.reportType}" style=" width : 141px;">
+									<f:selectItem itemValue="false" itemLabel="Task Report" />
+									<f:selectItem itemValue="true" itemLabel="Employee Report" />
+									<f:ajax listener="#{emReportHandler.changeReportType}"	render="employ" />
+							</h:selectOneMenu>
+							<td style="width:50px;"></td>
+						</h:panelGrid>
+						<h:panelGrid bgcolor="#F1F2FC" style=" width : 619px;">
+							<h:panelGrid id="employ" columns="4" bgcolor="#F1F2FC" style=" width : 468px;">
+								<h:outputLabel id="label1" value="Select Employee Name :"
+									rendered="#{emReportHandler.reportType=='true'}" />
+									<td style="width : 19px; height : 9px;"></td>
+								<h:selectOneMenu id="menu1" value="#{emReportHandler.empId}"
+									style=" width : 141px;"
+									rendered="#{emReportHandler.reportType=='true'}">
+									<f:selectItem itemValue="0" itemLabel="Select Employee"/>
+									<f:selectItems value="#{emReportHandler.empList}" var="n"
+										itemLabel="#{n.empName}" itemValue="#{n.empId}"></f:selectItems>
+									<f:ajax listener="#{emReportHandler.changeEmployeeList}"
+										render="empDesignationid" />
+								</h:selectOneMenu>
+								<h:outputText style="color:#00000" id="empDesignationid"
+									value="#{emReportHandler.designation}" />
+							</h:panelGrid>
+							
+						</h:panelGrid>
+						<h:panelGrid bgcolor="#F1F2FC" columns="3" style=" width : 664px;">
+							<h:outputLabel value="Select Date:" />
+							<td style="width : 8px; height : 0px;"></td>
+							<h:panelGrid columns="6" bgcolor="#F1F2FC" style=" width : 568px;">
+								
+								<h:outputLabel value="  From :" />
+								<td style="width : 19px; height : 0px;"></td>
+								<rich:calendar value="#{emReportHandler.from}"
+									datePattern="dd/MM/yyyy" required="true"
+									requiredMessage="Please Select From Date "></rich:calendar>
+								
+								<h:outputLabel value="To:" />
+								<td width="10px" ></td>
+								<rich:calendar value="#{emReportHandler.to}"
+									datePattern="dd/MM/yyyy" required="true"
+									requiredMessage="Please Select To Date "></rich:calendar>
+							</h:panelGrid>
+							<h:outputLabel value="    " />
+						</h:panelGrid >
+					</h:panelGrid  >
+					<h:panelGrid columns="2" style="width:100%;height:70px">
+					<h:commandButton action="#{emReportHandler.generateAllReport}"
+						value="Generate Report"
+						style="background-image: url(); background-color: #90B5F;width:141px" />
+				</h:panelGrid>
+				</rich:panel>
+
+			</h:form>
+			<td width="350px"></td>
+			</h:panelGrid>
+			<t:saveState value="#{emReportHandler.reportType}" />
+
+		</f:view>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,203 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/templates/ecmsDefaultTemplate.xhtml">
+
+	<ui:define name="body">
+	<h:panelGrid  bgcolor="#CCCCCE" columns="3" style="width:1320px; border-radius: 20px;">
+			<td width="350px"></td>
+		<h:form name="EditddUser" id="userInfo">
+	<h:messages errorStyle="color:red;" infoStyle="color:green;"
+					style="font-size:small;" />
+			<rich:panel style="width:650px; height:450px;background:#F1F2FC;border-radius: 20px;box-shadow: 10px 10px 5px #888888;" >
+				
+	<h:outputLabel value="Update User Information" style="display:block; color:#000;font-weight:bold;" />
+					
+			
+
+					<h:panelGrid id="grid_01" columns="2" styleClass="formField" bgcolor="#F1F2FC">
+
+					<h:outputLabel value="UserId " />
+
+				
+						<h:outputLabel   id="user_wddf"
+						value="#{userCreationHandler.userLoginId}"
+						  />
+
+
+
+					<h:outputLabel value="Password " />
+					<input label="Password" jsfc="h:inputSecret" id="pass_wd"
+						value="#{userCreationHandler.currentPassword}"
+						redisplay="true" styleClass="textBoxStyle"/>
+
+
+					<h:outputLabel value="Retype Password " />
+					<input label="Retype Password" jsfc="h:inputSecret"
+						id="ReTYPR_pass_wd" 
+						value="#{userCreationHandler.passwordRetypeCheck}" redisplay="true"
+						styleClass="textBoxStyle" />
+
+                      <h:outputLabel value="Enabled" />
+					<h:selectBooleanCheckbox
+						value="#{userCreationHandler.enabledcheck}"  />
+                     
+                      <h:outputLabel value="Task Previleges" />
+                      <h:selectBooleanCheckbox
+						value="#{userCreationHandler.enableprev}"  />
+					
+				</h:panelGrid>
+				
+			<h:panelGrid columns="4" width="100%" styleClass="headingBarGrid" bgcolor="#F1F2FC" >
+					<h:outputText style="color:black" value="CONTACT INFORMATION" styleClass="headingBarText" />
+
+				</h:panelGrid>
+				<h:panelGrid id="grid_10c" columns="2" width="500px" styleClass="formField" bgcolor="#F1F2FC">
+					<h:outputLabel value="Name" />
+
+					<h:selectOneMenu value="#{userCreationHandler.salutationNameSel}">
+						<f:selectItem  itemLabel="Mr." itemValue="Mr."/>
+						<f:selectItem  itemLabel="Ms." itemValue="Ms."/>
+						<f:selectItem  itemLabel="Mrs." itemValue="Mrs."/>
+					    
+					</h:selectOneMenu>
+                    <h:outputLabel value="First Name *" />
+					<h:inputText id="FName" label="First Name"
+						value="#{userCreationHandler.firstName}"
+						required="true" redisplay="true"
+						validatorMessage="First name must be minimum one character long."
+						style=" width : 39%;" styleClass="textBoxStyle">
+						<f:validateLength minimum="1" />
+					</h:inputText>
+				
+					<h:outputLabel value="Middle Name " />
+					
+					<h:inputText id="MName" label="Middle Name"
+						value="#{userCreationHandler.middleName}"
+						redisplay="true" style=" width : 39%;" styleClass="textBoxStyle">
+					</h:inputText>
+					
+					<h:outputLabel value="Last Name " />
+					<h:inputText id="LName" label="Last Name"
+						value="#{userCreationHandler.lastName}" 
+						redisplay="true"
+						style=" width : 39%;" styleClass="textBoxStyle">
+					</h:inputText>
+					<h:outputLabel style=" margin-bottom:0%;margin-left:0%; " value="" />
+					
+					
+					
+					
+
+				</h:panelGrid>
+              <div id="baseRoleDivId">
+
+					<h:panelGrid id="aaUR" columns="3"   width="100%" styleClass="headingBarGrid" bgcolor="#F1F2FC" >
+						<h:outputText style="color:black" value="USER ROLE" styleClass="headingBarText" />
+
+					</h:panelGrid>
+
+
+					<h:dataTable id="role" var="item"
+						value="#{userCreationHandler.baseRoleItemList}" styleClass="formField" bgcolor="#F1F2FC">
+						<h:column>
+							<h:selectBooleanCheckbox id="isCheck" value="#{item.checked}"
+								onclick="roleCheck(this)" >
+							</h:selectBooleanCheckbox>
+
+							<h:outputText value="#{item.description}"  styleClass="formField"/>
+						</h:column>
+					</h:dataTable>
+				</div>
+				<h:panelGrid id="grid103" columns="3" width="30%"
+					style="text-align: center;" bgcolor="#F1F2FC">
+					
+					
+					<t:div style="width:200px;"></t:div>
+					<h:commandButton value="Update" onclick="return roleValidate();"
+						action="#{userCreationHandler.updateUser}" style=" width : 92px;" styleClass="buttonStyle" >
+					
+					</h:commandButton>
+					
+					
+					
+					<h:commandButton value="Cancel" 
+						action="#{userCreationHandler.cancelUser}" immediate="true"
+						style=" width : 87px;" styleClass="buttonStyle" />
+				</h:panelGrid>
+				
+				
+			</rich:panel>
+		
+		</h:form>
+		<td width="150px"></td>
+		</h:panelGrid>
+				<t:saveState value="#{userCreationHandler.roleId}"/>
+				<t:saveState value="#{userCreationHandler.userId}"/>
+				<t:saveState value="#{userCreationHandler.userLoginId}"/>
+
+		<script type="text/javascript">
+			//<![CDATA[
+			
+			function roleCheck(value){
+
+			
+	
+				for(var i=0;i<document.userInfo.elements.length;i++){
+					if(i> 3 && document.userInfo.elements[i].type == 'checkbox'){
+
+							if(value===document.userInfo.elements[i]){
+						var selIndex=i;
+						var value = document.userInfo.elements[i].checked;
+					break;
+					}
+					}}
+
+				for(var i=0;i<document.userInfo.elements.length;i++){
+					if(i> 3 && document.userInfo.elements[i].type == 'checkbox'){
+						
+					if(value){
+						if(i ==selIndex){
+							document.userInfo.elements[i].disabled=false;
+							}
+						else{
+							//document.userInfo.elements[i].disabled=true;
+							document.userInfo.elements[i].checked=false;
+							}
+						}
+					if(!value){
+						document.userInfo.elements[i].disabled=false;
+						}}
+					}
+				
+				}
+function roleValidate(value){
+	var checked=false;
+	for(var i=0;i<document.userInfo.elements.length;i++){
+		if(i>3 && document.userInfo.elements[i].type == 'checkbox'){
+		if(document.userInfo.elements[i].checked){
+			checked=true;
+		break;
+		}
+		}}
+		if(checked){
+			return true;
+		}else{
+			alert('Please select atleast one role');
+			return false;
+			}
+		
+}
+//]]>
+</script>
+
+	</ui:define>
+</ui:composition>
+</html>

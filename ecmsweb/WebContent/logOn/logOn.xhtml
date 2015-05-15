@@ -1,0 +1,125 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:xforms="http://www.w3.org/1999/xhtml">
+
+<h:form id="Login_form" onLoad="setFocusIt();">
+		<link rel="stylesheet" type="text/css" href="#{request.contextPath}/styles/ecmsCSS.css" />
+		
+
+		<div style="height: 50px;"/>
+
+		
+		
+
+		<ui:include src="/headFoot/messageHeader.xhtml" />
+		
+		<table border="0">
+		
+			<tr>
+				<td><h:graphicImage value="/images/ets_new.png" style="width : 400px; height : 253px;"></h:graphicImage><div style="width: 150px;" /></td>
+				<td><h:outputLabel id="logotxt" value="" styleClass="formlogo" />
+				</td>
+
+				<td>
+					<table border="0" style="border-style:solid;border-color:black;border-width:1;">
+					<tr>
+					<td><div style="height:50px;" /></td>
+					</tr>
+						<tr>
+						<td><div style="width: 20px;" /></td>
+							<td>
+									<h:outputLabel id="userI" value="UserID" styleClass="formField" />
+							</td>
+							
+							<td>		<h:inputText label="User Id" value="#{logOnHandler.userName}" validatorMessage="UserId must contained some character" styleClass="textBoxStyle">
+										
+										</h:inputText>
+							</td>
+						</tr>
+						<tr>
+						<td><div style="height: 20px;" /></td>
+						</tr>
+						<tr><td><div style="width:20px;" /></td>
+							<td>
+								<h:outputLabel id="passwordId" value="Password" styleClass="formField" />
+							</td>
+							<td>
+									<h:inputSecret id="Password" value="#{logOnHandler.password}" styleClass="textBoxStyle" redisplay="true" validatorMessage="Password field contained some character">
+									
+									</h:inputSecret>
+							</td>
+						</tr>
+						<tr>
+						<td><div style="height:20px;" /></td>
+						</tr>
+						<tr><td></td>
+							<td></td>
+							<td>
+									<input type="submit" id="SubmitLoginId" jsfc="h:commandButton" action="#{logOnHandler.userDetails}" value="   LOG IN  " styleClass="buttonStyle" style=" width : 143px;" />
+							
+							</td>
+						</tr>
+						<tr>
+						<td colspan="3">
+							<h:outputText value="Log in problem? Please contact your Manager / Supervisor." styleClass="logInFootLabel" />
+						</td>
+						</tr>
+						<tr>
+					<td><div style="height:50px;" /></td>
+					</tr>
+					</table> 
+					</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td>
+				</td>
+				<td></td>
+			</tr>
+
+		</table><div style="height: 20px;"/>
+		
+
+		
+
+	
+	</h:form>
+	<br />
+	<script type="text/javascript"><!--
+			//<![CDATA[
+function resetLogin(){
+	for(i=0;i<document.Login_form.elements.length;i++){
+		value= document.Login_form.elements[i].type;
+		if(value == 'text' || value =='password'){
+			document.Login_form.elements[i].focus();
+			
+			document.Login_form.elements[i].value='';
+			
+			}
+		}
+	setFocusIt();
+} 
+
+
+
+function setFocusIt(){
+	for(i=0;i<document.Login_form.elements.length;i++){
+		value= document.Login_form.elements[i].type;
+		if(value == 'text'){
+			document.Login_form.elements[i].focus();
+			}
+		}
+}
+	
+setFocusIt();
+
+//]]>
+--></script>
+</ui:composition>
+
